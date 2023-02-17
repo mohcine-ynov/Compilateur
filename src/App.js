@@ -1,11 +1,14 @@
-import './App.css';
-import Compilateur from './Compilateur/Compilateur';
+import "./App.css";
+import Compilateur from "./Compilateur/Compilateur";
+import Exercices from "./Exercices/Exercices";
+import { Box } from "@mui/material";
 
 function App() {
   return (
-    <div className="App">
+    <Box className='App' sx={{ display: "flex" }}>
+      <Exercices />
       <Compilateur />
-    </div>
+    </Box>
   );
 }
 
