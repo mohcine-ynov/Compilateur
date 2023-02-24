@@ -4,6 +4,7 @@ import Exercices from "./Exercices/Exercices";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { redirect, useParams } from "react-router-dom";
+import Kasm from "./Kasm/Kasm";
 
 function App() {
   redirect("/student");
