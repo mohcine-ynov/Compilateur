@@ -27,7 +27,7 @@ function Exercice(props) {
         </Typography>
       </Box>
       <Box sx={{ textAlign: "right" }}>
-        {mode === "student" ? (
+        {mode === "student" && !!state ? (
           <Chip
             label={state.label}
             color={state.color}

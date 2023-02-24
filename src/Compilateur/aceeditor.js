@@ -5,13 +5,13 @@ import "brace/mode/javascript";
 import "brace/theme/tomorrow";
 
 function Editor(props) {
-  const { getCode } = props;
-  const DEFAULT_CODE = `let result = null
-  \n function displayResult(){
-  \t //type your code here
-  \t return result
-  }
-  \n displayResult()`;
+  const { getCode, initCode } = props;
+  // const DEFAULT_CODE = `let result = null
+  // \n function displayResult(){
+  // \t //type your code here
+  // \t return result
+  // }
+  // \n displayResult()`;
   return (
     <Box sx={{ border: "solid #c4c4c4 1px", borderRadius: "4px" }}>
       <AceEditor
@@ -22,7 +22,7 @@ function Editor(props) {
         onChange={getCode}
         editorProps={{ $blockScrolling: true }}
         style={{ width: "100%", height: "200px" }}
-        defaultValue={DEFAULT_CODE}
+        value={initCode}
       />
     </Box>
   );

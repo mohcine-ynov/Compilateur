@@ -42,16 +42,18 @@ function Exercices(props) {
       return l;
     });
     setLanguageList(temp);
-    // setCurrentExercice(languageList[language].exercices[step]);
+    setCurrentExercice(
+      languageList.find((l) => l.id === language).exercices[step]
+    );
   }, [step]);
 
   const [open, setOpen] = useState(false);
-  // const addExercise = (data) => {
-  //   setLanguageList([
-  //     ...languageList[language].exercices,
-  //     { statement: data.statement, expectedResult: data.expectedResult },
-  //   ]);
-  // };
+  const addExercise = (data) => {
+    setLanguageList([
+      ...languageList.find((l) => l.id === language).exercices,
+      { statement: data.statement, expectedResult: data.expectedResult },
+    ]);
+  };
   return (
     <Box>
       <AddExercise
@@ -60,7 +62,7 @@ function Exercices(props) {
         }
         open={open}
         setOpen={setOpen}
-        addExercise={languageList.find((l) => l.id === language)}
+        addExercise={addExercise}
       />
       <Typography variant='h4' sx={{ mt: "30px", mb: "10px" }}>
         Exercices
@@ -77,20 +79,24 @@ function Exercices(props) {
         <></>
       )}
 
-      {languageList
-        .find((l) => l.id === language)
-        .exercices.map((exercice, index) => (
-          <Exercice
-            key={index}
-            statement={exercice.statement}
-            expectedResult={exercice.expectedResult}
-            number={index}
-            state={exercice.state}
-            mode={mode}
-            step={step}
-            index={index}
-          />
-        ))}
+      {languageList.find((l) => l.id === language).exercices ? (
+        languageList
+          .find((l) => l.id === language)
+          .exercices.map((exercice, index) => (
+            <Exercice
+              key={index}
+              statement={exercice.statement}
+              expectedResult={exercice.expectedResult}
+              number={index}
+              state={exercice.state}
+              mode={mode}
+              step={step}
+              index={index}
+            />
+          ))
+      ) : (
+        <></>
+      )}
     </Box>
   );
 }

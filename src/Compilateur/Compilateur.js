@@ -26,13 +26,12 @@ function Compilateur(props) {
   const [borderColor, setBorderColor] = useState("#c4c4c4");
 
   const checkResult = (result) => {
+    setOutput(result);
     if (result === currentExercice.expectedResult) {
       setBorderColor("green");
       setStep(step + 1);
-      setOutput(result);
     } else {
       setBorderColor("red");
-      setOutput(":(");
     }
   };
 
@@ -67,20 +66,13 @@ function Compilateur(props) {
       optionsForPost.data = {
         language_id: language,
         source_code: window.btoa(codeToCompile),
-        // "stdin": "SnVkZ2Uw"
       };
 
-      // console.log(this.options);
-      // console.log("code to compile : " + codeToCompile);
-      // console.log("encoded code : " + codeToCompileEncoded);
-
-      //sending the code to get the token
       axios
         .request(optionsForPost)
         .then((response) => {
           var optionsForGet = {
             method: "GET",
-            // url: 'https://judge0-ce.p.rapidapi.com/submissions/415414eb-f565-4fcc-a8e1-2a284152d504',
             params: { base64_encoded: "true", fields: "*" },
             headers: {
               "X-RapidAPI-Key":
@@ -96,7 +88,8 @@ function Compilateur(props) {
           axios
             .request(optionsForGet)
             .then((response) => {
-              setOutput(window.atob(response.data.stdout));
+              checkResult(response.data.stdout);
+              // setOutput(window.atob(response.data.stdout));
             })
             .catch(function (error) {
               console.error(error);
@@ -126,7 +119,10 @@ function Compilateur(props) {
           ))}
         </Select>
       </FormControl>
-      <Editor getCode={setCode} />
+      <Editor
+        getCode={setCode}
+        initCode={languageList.find((l) => l.id === language).initCode}
+      />
       <br />
       <Button variant='contained' onClick={executeCode} sx={{ m: "10px" }}>
         Executer
