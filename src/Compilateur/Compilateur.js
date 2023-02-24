@@ -58,7 +58,7 @@ function Compilateur(props) {
     const codeToCompile = code;
     console.log(codeToCompile);
     console.log(currentExercice.expectedResult);
-    if (language === 25) {
+    if (language === 63) {
       console.log(eval(codeToCompile));
       const result = eval(codeToCompile);
       setOutput(result);
@@ -115,7 +115,7 @@ function Compilateur(props) {
         <Select
           labelId='demo-simple-select-label'
           id='demo-simple-select'
-          defaultValue={26}
+          value={language}
           label='language'
           onChange={(e) => setLanguage(e.target.value)}
         >

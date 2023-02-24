@@ -14,13 +14,15 @@ function Exercices(props) {
   } = props;
 
   useEffect(() => {
-    setCurrentExercice(languageList[language].exercices[step]);
+    setCurrentExercice(
+      languageList.find((l) => l.id == language).exercices[step]
+    );
   });
 
   useEffect(() => {
     console.log("ici");
     const temp = languageList.map((l, index) => {
-      if (l.id === language + 1) {
+      if (l.id === language) {
         l.exercices.forEach((ex, index) => {
           if (ex.id === step - 1) {
             ex.state = {
@@ -44,19 +46,21 @@ function Exercices(props) {
   }, [step]);
 
   const [open, setOpen] = useState(false);
-  const addExercise = (data) => {
-    setLanguageList([
-      ...languageList[language].exercices,
-      { statement: data.statement, expectedResult: data.expectedResult },
-    ]);
-  };
+  // const addExercise = (data) => {
+  //   setLanguageList([
+  //     ...languageList[language].exercices,
+  //     { statement: data.statement, expectedResult: data.expectedResult },
+  //   ]);
+  // };
   return (
     <Box>
       <AddExercise
-        exerciseIndex={languageList[language].exercices.length}
+        exerciseIndex={
+          languageList.find((l) => l.id === language).exercices.length
+        }
         open={open}
         setOpen={setOpen}
-        addExercise={addExercise}
+        addExercise={languageList.find((l) => l.id === language)}
       />
       <Typography variant='h4' sx={{ mt: "30px", mb: "10px" }}>
         Exercices
@@ -73,18 +77,20 @@ function Exercices(props) {
         <></>
       )}
 
-      {languageList[language].exercices.map((exercice, index) => (
-        <Exercice
-          key={index}
-          statement={exercice.statement}
-          expectedResult={exercice.expectedResult}
-          number={index}
-          state={exercice.state}
-          mode={mode}
-          step={step}
-          index={index}
-        />
-      ))}
+      {languageList
+        .find((l) => l.id === language)
+        .exercices.map((exercice, index) => (
+          <Exercice
+            key={index}
+            statement={exercice.statement}
+            expectedResult={exercice.expectedResult}
+            number={index}
+            state={exercice.state}
+            mode={mode}
+            step={step}
+            index={index}
+          />
+        ))}
     </Box>
   );
 }
