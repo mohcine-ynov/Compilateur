@@ -96,7 +96,7 @@ function Compilateur(props) {
           axios
             .request(optionsForGet)
             .then((response) => {
-              setOutput(response.data.stdout);
+              setOutput(window.atob(response.data.stdout));
             })
             .catch(function (error) {
               console.error(error);
