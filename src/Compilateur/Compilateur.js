@@ -26,6 +26,10 @@ function Compilateur(props) {
   const [borderColor, setBorderColor] = useState("#c4c4c4");
 
   const checkResult = (result) => {
+    console.log(result);
+    console.log(
+      languageList.find((l) => l.id === language).exercices[step].expectedResult
+    );
     setOutput(result);
     if (
       result ==
@@ -61,11 +65,11 @@ function Compilateur(props) {
     console.log(codeToCompile);
     console.log(currentExercice.expectedResult);
     if (language === 63) {
-      checkResult(window.atob("SGVsbG8gV29ybGQK"));
+      // checkResult(window.atob("SGVsbG8gV29ybGQK"));
       // console.log(eval(codeToCompile));
-      // const result = eval(codeToCompile);
+      const result = eval(codeToCompile);
       // setOutput(result);
-      // checkResult(result);
+      checkResult(result);
     } else {
       optionsForPost.data = {
         language_id: language,
