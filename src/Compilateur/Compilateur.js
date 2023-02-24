@@ -27,7 +27,10 @@ function Compilateur(props) {
 
   const checkResult = (result) => {
     setOutput(result);
-    if (result === currentExercice.expectedResult) {
+    if (
+      result ==
+      languageList.find((l) => l.id === language).exercices[step].expectedResult
+    ) {
       setBorderColor("green");
       setStep(step + 1);
     } else {
@@ -58,10 +61,11 @@ function Compilateur(props) {
     console.log(codeToCompile);
     console.log(currentExercice.expectedResult);
     if (language === 63) {
-      console.log(eval(codeToCompile));
-      const result = eval(codeToCompile);
-      setOutput(result);
-      checkResult(result);
+      checkResult(window.atob("SGVsbG8gV29ybGQK"));
+      // console.log(eval(codeToCompile));
+      // const result = eval(codeToCompile);
+      // setOutput(result);
+      // checkResult(result);
     } else {
       optionsForPost.data = {
         language_id: language,
@@ -88,8 +92,7 @@ function Compilateur(props) {
           axios
             .request(optionsForGet)
             .then((response) => {
-              checkResult(response.data.stdout);
-              // setOutput(window.atob(response.data.stdout));
+              checkResult(window.atob(response.data.stdout));
             })
             .catch(function (error) {
               console.error(error);

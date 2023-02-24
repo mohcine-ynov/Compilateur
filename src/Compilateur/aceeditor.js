@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import AceEditor from "react-ace";
 import "brace/mode/javascript";
@@ -12,6 +12,13 @@ function Editor(props) {
   // \t return result
   // }
   // \n displayResult()`;
+
+  const [defaultCode, setDefaultCode] = useState("");
+
+  useEffect(() => {
+    setDefaultCode(initCode);
+  }, [initCode]);
+
   return (
     <Box sx={{ border: "solid #c4c4c4 1px", borderRadius: "4px" }}>
       <AceEditor
@@ -19,10 +26,13 @@ function Editor(props) {
         theme='tomorrow'
         name='editor'
         fontSize={14}
-        onChange={getCode}
+        onChange={(e) => {
+          getCode(e);
+          setDefaultCode(e);
+        }}
         editorProps={{ $blockScrolling: true }}
         style={{ width: "100%", height: "200px" }}
-        value={initCode}
+        value={defaultCode}
       />
     </Box>
   );
